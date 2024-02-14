@@ -82,13 +82,10 @@ export default function PostTweetForm() {
         tweet,
         createdAt: Date.now(),
         username: user.displayName || "Anonymous",
-        userid: user.uid,
+        userId: user.uid,
       });
       if (file) {
-        const locationRef = ref(
-          storage,
-          `tweets/${user.uid}-${user.displayName}/${doc.id}`
-        );
+        const locationRef = ref(storage, `tweets/${user.uid}/${doc.id}`);
         const result = await uploadBytes(locationRef, file);
         const url = await getDownloadURL(result.ref);
         await updateDoc(doc, {
